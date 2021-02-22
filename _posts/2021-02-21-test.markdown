@@ -1,0 +1,9 @@
+---
+layout: post
+title: new post test
+date: 2021-02-21 15:12:18 +0800
+image: 3.jpg
+tags: [life]
+categories: others
+---
+123123

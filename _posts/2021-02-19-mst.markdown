@@ -1,0 +1,58 @@
+---
+layout: post
+title: <演算法筆記> MST是什麼？如何找MST？Prim's Algorithm和Dijkstra Algorithm比較
+image: 6.jpg
+date: 2021-02-19 20:53:38 +0800
+tags: [algorithm, graph]
+categories: notes
+---
+## Minimum-Weight Spanning Tree 介紹
+Minimum-Weight Spanning Trees Problem
+### Given:
+- Undirected spanning graph G = (V, E)
+### Find:
+- A spanning tree T of Graph G that has min weight.
+
+MST主要是為了找到圖中的一個樹(連接所有點，但不一定要連接所有邊)，使得樹中的weight總重量最少。
+
+### Solution--- `Prim's algorithm`:
+- 想法：每一次從當下的vertex v，選擇下一個vertex w時，選擇weight(v, w)最小的。
+- 跟`Dijkstra Algorithm`的比較：
+**Prim找MST**其實跟**Dijkstra找Shortest path**非常像，但Dijkstra是為了找到指定Root到其他所有點的最短路徑，所以每次比較時找的是最短的Path，而Prim則只比較當下的edge 。
+ 
+  - Dijkstra：每次更新都從"起點"算最小值(從Root開始把weight加總, i.e. v.SP)
+  - generating Min-weight Spanning Tree：每次更新只從接下來的edge(i.e. (v, w))找min weight，而不是從起點開始把weight加總再找min
+ 
+- Q: 找MST可以使用Dijkstra嗎？
+A: 可以。因為Dijkstra's Alg.找到的path會是一個MST；但是反過來說，用Prim's Alg.找到的MST不一定是對於某vertex的shortest path。
+*補充：比較兩個演算法的Time Complexity:
+  - Dijkstra's Alg. = O((|E| + |V|)log|V|) (參照 #5 )
+  - Prim's Alg. = O((|V|+|E|)log |V|)=O(|E|log |V|) ([維基百科](https://en.wikipedia.org/wiki/Prim%27s_algorithm))
+
+## MST implementation
+- pseudocode
+{% highlight js %}
+Algorithm Another MST(G);
+//Prim's algorithm
+begin
+     initially T is the empty set;
+     for all vertices w do
+          w.mark := false; w.cost := INF;
+     x.mark := true; //x是任意的vertex
+     for all edges (x, z) do
+          z.edge := (x, z); z.cost := cost(x, z);
+
+     while there exists an unmarked vertex do
+          let w be an unmarked vertex with minimal w.cost;
+          if w.cost = INF then //連最小的w.cost都是無限大，代表沒有w有連到edge
+               print "G is not connected"; halt
+          else
+               w.mark := true;
+               add w.edge to T;
+               for all edges (w, z) do
+                    if not z.mark then //沒有走過的點z
+                         if cost(w, z) < z.cost then //找到最小cost的下一個邊
+                              z.edge := (w, z); //紀錄edge
+                              z.cost := cost(w, z)
+end
+{% endhighlight %}

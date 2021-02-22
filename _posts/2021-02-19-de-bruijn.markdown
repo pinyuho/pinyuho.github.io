@@ -1,0 +1,56 @@
+---
+layout: post
+title: <演算法筆記> De Bruijn sequence/graph是什麼？de Bruijn graph為什麼是一個Eulerian Circuit？
+date: 2021-02-19 20:34:57 +0800
+image: 6.jpg
+tags: [algorithm, graph]
+categories: notes
+---
+De Bruijn sequence的定義，我覺得[這個網站](https://zhouer.org/DeBruijn/)寫得很清楚，在此摘錄下定義與舉例的部分：
+
+> De Bruijn sequence B(k, n) 是一種 sequence，由 **k 種不同符號**組成，且其所有**長度為 n** 之連續子序列恰為 k 種符號組成長度為 n 的所有排列。 例如：00010111 即為一 B(2, 3) 序列，因其連續子序列（尾端循環至開頭） 000, 001, 010, 101, 011, 111, 110, 100 恰為所有由 {0, 1} 組成且長度 3 的序列。
+
+而一個**Binary de Bruijn sequence**則是 de Bruijn sequence的一種，為B(k, n)中**k = 2**的特例，像上述的sequence: 0010111，就是一個Binary de Bruijn sequence，而對於一個B(2, n)，可以有很多種不同可能，而怎麼產生出一個合法的de Bruijn sequence，就要透過graph來實現了：只要再以下定義好的Graph中走過一個**Eulerian circuit**，就能夠獲得長度為2^n的string，也就是de Bruijn sequence。
+
+- Definition of G_n(V, E)：
+
+> The vertex set V corresponds to the set of all binary strings of size n−1 (|V| = 2^(n−1)).
+A vertex corresponding to the string a1a2 · · · an−1 has an edge leading to a vertex
+corresponding to the string b1b2 · · · bn−1 if and only if a2a3 · · · an−1 = b1b2 · · · bn−2
+
+>(中文的簡單理解)vertex的數量是所有長度為2^(n-1)的二元字串，且假設一個vertex存的sequence A = {a1a2...an-1}，此vertex指向的下一個vertex 存的sequence B= {b1b2...bn-1}，則a2a3...an-1 = b1b2..bn-2 (原sequence A從第二個到最後一個element，直接當作sequence B的第一個到倒數第二個element)，並且bn-1 = 0 或 1(sequece B的最後一個element依據edge指出去的值而決定)
+
+![alg2019hw7 41](https://user-images.githubusercontent.com/75214186/100719697-ef520280-33f7-11eb-93f9-7fff878e91a2.jpg)
+
+以上圖n=3為例，G_n(V, E)中會有的node數量是2^(3-1) = 4個，每一個node分別為{00, 01, 10, 11}，並且每一個node都有k=2條directed edge(值分別為0, 1)指向下一個node。因此我們就有線索來計算此圖中vertex的in degree, out degree數量：
+
+1. out degree：
+如果原vertex='00', 指出去的edge值 = 0，則新vertex='00' (edge指向自己)
+如果原vertex='00', 指出去的edge值 = 1，則新vertex='01'
+=>out degree = 2
+2. in degree：
+如果原vertex='00', 指出去的edge值 = 1，則新vertex='01'
+如果原vertex='10', 指出去的edge值 = 1，則新vertex='01'
+=>in degree = 2
+
+- In general case：
+sequence A = {a1a2...an-1}
+sequence B = {b1b2...bn-1}
+
+1. out degree：
+原vertex：sequence A = {a1a2...an-1}, 指出去的edge值 = 0，則新vertex：sequence B =  {b1b2...bn-1} = {a2a3...a(n-1)**0**}
+原vertex：sequence A = {a1a2...an-1}, 指出去的edge值 = 1，則新vertex：sequence B =  {b1b2...bn-1} = {a2a3...a(n-1)**1**}
+=>out degree = 2 ( = B(k, n)的 k )
+
+2. in degree：
+新vertex：sequence B = {b1b2...bn-1}, 指出去的edge值 = 0，則原vertex：sequence A = {a1a2...an-1} = {b2b3...b(n-1)**0**}
+新vertex：sequence B = {b1b2...bn-1}, 指出去的edge值 = 1，則原vertex：sequence A = {a1a2...an-1} = {b2b3...b(n-1)**1**}
+=>in degree = 2 ( = B(k, n)的 k )
+
+由上，我們可以得知：
+在directed graph G_n(V, K)中，每一個vertex的in degree = out degree，再根據Eulerian circuit的定義  (參照這篇：#2)
+=>推得：G_n(V, K) is an Eulerian Circuit.
+
+
+
+
