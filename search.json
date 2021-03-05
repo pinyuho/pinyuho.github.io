@@ -1,0 +1,67 @@
+[
+  
+    {
+      "title"    : "&lt;C++小遊戲&gt; SFML安裝與Visual Studio環境建置紀錄",
+      "category" : "",
+      "tags"     : "game",
+      "url"      : "/2021/02/20/sfml-vs-tutorial/",
+      "date"     : "2021-02-20 20:50:27 +0800"
+    } ,
+  
+    {
+      "title"    : "&lt;演算法筆記&gt; Reduction介紹 + 範例",
+      "category" : "",
+      "tags"     : "algorithm",
+      "url"      : "/2021/02/19/reduction/",
+      "date"     : "2021-02-19 20:57:21 +0800"
+    } ,
+  
+    {
+      "title"    : "&lt;演算法筆記&gt; MST是什麼？如何找MST？Prim&#39;s Algorithm和Dijkstra Algorithm比較",
+      "category" : "",
+      "tags"     : "algorithm and graph",
+      "url"      : "/2021/02/19/mst/",
+      "date"     : "2021-02-19 20:53:38 +0800"
+    } ,
+  
+    {
+      "title"    : "&lt;演算法筆記&gt; 如何找最短路徑? Dijkstra&#39;s algorithm的時間複雜度討論 + min heap介紹",
+      "category" : "",
+      "tags"     : "algorithm, graph, and data-structure",
+      "url"      : "/2021/02/19/shortest-path/",
+      "date"     : "2021-02-19 20:50:27 +0800"
+    } ,
+  
+    {
+      "title"    : "&lt;演算法筆記&gt; 基本graph名詞介紹 + DFS, BFS筆記",
+      "category" : "",
+      "tags"     : "algorithm and graph",
+      "url"      : "/2021/02/19/graph-basics/",
+      "date"     : "2021-02-19 20:42:46 +0800"
+    } ,
+  
+    {
+      "title"    : "&lt;演算法筆記&gt; De Bruijn sequence/graph是什麼？de Bruijn graph為什麼是一個Eulerian Circuit？",
+      "category" : "",
+      "tags"     : "algorithm and graph",
+      "url"      : "/2021/02/19/de-bruijn/",
+      "date"     : "2021-02-19 20:34:57 +0800"
+    } ,
+  
+    {
+      "title"    : "&lt;演算法筆記&gt; Eulerian Circuit是什麼? 如何確認Graph中有Eulerian Circuit?",
+      "category" : "",
+      "tags"     : "algorithm and graph",
+      "url"      : "/2021/02/19/eulerian-circuit/",
+      "date"     : "2021-02-19 19:09:53 +0800"
+    } ,
+  
+    {
+      "title"    : "第一篇文章! 架設GitHub Pages紀錄",
+      "category" : "",
+      "tags"     : "life",
+      "url"      : "/2021/02/18/first-post/",
+      "date"     : "2021-02-18 15:12:18 +0800"
+    } 
+  
+]
