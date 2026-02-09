@@ -1,0 +1,37 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+
+const posts: CollectionEntry<"blog">[] = await getCollection("blog");
+
+posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Pin Yu | Tech Notes</title>
+  </head>
+  <body style="max-width: 720px; margin: 40px auto; padding: 0 16px; line-height: 1.7;">
+    <header>
+      <h1 style="margin-bottom: 6px;">Pin Yu | Tech Notes</h1>
+      <p style="margin-top: 0; opacity: 0.8;">
+        這裡放我的技術文章與筆記。
+      </p>
+      <hr />
+    </header>
+
+    <main>
+      <h2>Posts</h2>
+      <ul>
+        {posts.map((p) => (
+          <li>
+            <a href={`/blog/${p.slug}/`}>{p.data.title}</a>
+            <span style="opacity: 0.6;"> — {p.data.date.toISOString().slice(0, 10)}</span>
+            {p.data.description && <div style="opacity: 0.8;">{p.data.description}</div>}
+          </li>
+        ))}
+      </ul>
+    </main>
+  </body>
+</html>

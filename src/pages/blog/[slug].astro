@@ -1,0 +1,42 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+
+type BlogPost = CollectionEntry<"blog">;
+
+export async function getStaticPaths() {
+  const posts: BlogPost[] = await getCollection("blog");
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+
+const { post } = Astro.props as { post: BlogPost };
+
+const { Content } = await post.render();
+---
+
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{post.data.title}</title>
+  </head>
+
+  <body style="max-width: 720px; margin: 40px auto; padding: 0 16px; line-height: 1.7;">
+    <a href="/" style="display:inline-block; margin-bottom: 16px;">← Back</a>
+
+    <article>
+      <h1 style="margin-bottom: 6px;">{post.data.title}</h1>
+
+      <div style="opacity: 0.7; margin-bottom: 18px;">
+        {post.data.date.toISOString().slice(0, 10)}
+        {post.data.tags?.length ? ` · ${post.data.tags.join(" / ")}` : ""}
+      </div>
+
+      <Content />
+    </article>
+  </body>
+</html>
